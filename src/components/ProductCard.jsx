@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 function ProductCard({title,rating,price,id,imageUrl,description}) {
   const navigate = useNavigate();
   return (
-    <div className='flex flex-col hover:cursor-pointer' key={id} onClick={()=>{navigate(`/product/${id}`)}}>
+    <div className='flex flex-col hover:cursor-pointer hover:shadow-sm' key={id} onClick={()=>{navigate(`/product/${id}`)}}>
         <div className='w-[300px] h-[350px] bg-product-card rounded-3xl flex justify-center'>
             <img src={imageUrl} alt="" className='h-[100%]' />
         </div>

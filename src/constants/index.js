@@ -11,7 +11,7 @@ export const navItems=[
     },
     {
         value:'Cart',
-        url:'/',
+        url:'/cart',
         id:3,
     },
 ]

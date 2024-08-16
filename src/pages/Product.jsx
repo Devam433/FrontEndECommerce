@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import { fetchProductById } from '../features/productSlice.js';
 import ProductCard from '../components/ProductCard.jsx';
 import Button from '../components/Button.jsx';
+import { addToCart } from '../features/cartSlice.js';
 
 function Product() {
     const [loading,setLoading] = useState(true);
@@ -47,6 +48,7 @@ function Product() {
             return;
         }
         alert(`item id:${id} size${selectedSize} added`);
+        dispatch(addToCart({ id: 1, quantity: quantity}));
     }
 
     useEffect(()=>{

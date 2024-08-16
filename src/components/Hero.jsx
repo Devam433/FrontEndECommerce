@@ -2,7 +2,7 @@ import Button from "./Button"
 import EcomHeroImg2 from "../assets/EcomHeroImg2.png"
 function Hero() {
   return (
-    <section className=" mt-[56px] flex justify-around w-[97%] pb-5 sm:pb-0">
+    <section className=" mt-[70px] flex justify-around w-[97%] pb-5 sm:pb-2">
         <div className="flex flex-col w-full justify-center sm:w-[50%] gap-7 pt-5 sm:pt-0">
             <div className="flex flex-col justify-between gap-3">
                 <h1 className="text-heading-bold-black text-[4.3rem] sm:text-[5rem] font-extrabold leading-none sm:leading-tight text-center sm:text-left z-10 tracking-tight">Find Cloths That Matches Your Style</h1>
