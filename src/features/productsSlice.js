@@ -3,13 +3,17 @@ import api from '../api/api';
 
 export const fetchProducts = createAsyncThunk('fetchProducts', async () => {
   const response = await api.get('/products');
-  console.log(response.data.products);
   return response.data.products;
 });
 
+export const fetchProductsByCategory = createAsyncThunk('fetchProductsByCategory', async(categoryName)=>{
+  const response = await api.get(`/products/category/${categoryName}`);
+  return response.data.products;
+})
+
 const productSlice = createSlice({
   name: 'products',
-  initialState: { products: [], status: 'idle', error: null },
+  initialState: { products: [], status: 'idle', error: null, categoryProducts:[], },
   reducers: {},
   extraReducers: (builder) => {
     builder
@@ -18,14 +22,23 @@ const productSlice = createSlice({
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        console.log(action.payload);
         state.products = action.payload;
-        console.log(state.products);
       })
       .addCase(fetchProducts.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
-      });
+      })
+      .addCase(fetchProductsByCategory.pending,(state)=>{
+        state.status = 'loading';
+      })
+      .addCase(fetchProductsByCategory.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.categoryProducts = action.payload;
+      })
+      .addCase(fetchProductsByCategory.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      })
   },
 });
 

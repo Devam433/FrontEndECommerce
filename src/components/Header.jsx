@@ -3,8 +3,13 @@ import { navItems } from '../constants/index.js';
 import Button from './Button.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartShopping, faPerson, faPersonRifle, faSearch, faUser } from '@fortawesome/free-solid-svg-icons';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 function Header() {
+
+  const cartItems = useSelector(state=>state.cart.cart);
+  const navigate = useNavigate();
   return (
     <header className='w-full h-[55px] bg-white flex justify-center fixed top-0 left-0 z-50 shadow-md'>
       <div className='flex w-[97%] h-full bg-white items-center justify-between sm:justify-center gap-3'>
@@ -37,8 +42,18 @@ function Header() {
           </div>
           
           <div className='flex h-[70%] items-center gap-3'>
-            <div><FontAwesomeIcon icon={faCartShopping} size='lg'/></div>
-            <div><FontAwesomeIcon icon={faUser} size='lg'/></div>
+            <div className='absolute top-4'>
+              <button className='' onClick={()=>navigate('/cart')}><FontAwesomeIcon icon={faCartShopping} size='lg' className='hover:cursor-pointer hover:text-gray-500 transition-colors'/> </button>
+              { 
+              cartItems.length 
+              ?
+                <div className=' flex justify-center items-center relative left-[15px] bottom-[40px] w-[16px] h-[18px] rounded-full bg-red-600 text-white'><p className=''>{cartItems.length}</p></div>
+              : ''
+              }  
+            </div>
+            
+            <div className='ml-[42px]'><button><FontAwesomeIcon icon={faUser} size='lg' className='hover:cursor-pointer hover:text-gray-500 transition-colors'/></button></div>
+            
           </div>
         </section>
       </div>

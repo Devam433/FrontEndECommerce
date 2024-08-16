@@ -5,18 +5,25 @@ import { fetchProductById } from '../features/productSlice.js';
 import ProductCard from '../components/ProductCard.jsx';
 import Button from '../components/Button.jsx';
 import { addToCart } from '../features/cartSlice.js';
+import MightLikeCategory from '../components/MightLikeCategory.jsx';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 function Product() {
     const [loading,setLoading] = useState(true);
     const {id} = useParams();
     const products = useSelector(state=>state.products);
     const Product = useSelector(state=>state.Product.Product);
-    console.log(Product.id);
-    const [currentProduct,setCurrentProduct] = useState(null);
+    const [currentProduct,setCurrentProduct] = useState(null); //current viewing item
+   
     const [selectedSize,setSelectedSize] = useState(null);
     const [isSizeSelect,setIsSizeSelect] = useState(false);
     const [error,setError] = useState(null); //error only for select size
     const [quantity,setQuantity] = useState(1);
+
+    const [isAddingToCart,setIsAddingToCart] = useState(false);
+    const status = useSelector(state => state.cart.status);
+
     const dispatch = useDispatch();
 
     function handleSelectSize(size) {
@@ -47,8 +54,8 @@ function Product() {
             setError('Please Select a Size!');
             return;
         }
-        alert(`item id:${id} size${selectedSize} added`);
-        dispatch(addToCart({ id: 1, quantity: quantity}));
+        // setIsAddingToCart(true);
+        dispatch(addToCart({ id: id, quantity: quantity}));
     }
 
     useEffect(()=>{
@@ -63,7 +70,7 @@ function Product() {
     },[id])
 
   return (
-    <section className=' flex justify-center '>
+    <section className=' flex justify-center flex-col gap-8 items-center'>
     <div className='flex flex-col sm:flex-row w-[93%]  mt-[100px] gap-5 justify-center'> {/**border */}
         <div className='w-[320px] h[370px] sm:w-[400px] sm:h-[450px] bg-product-card rounded-3xl flex justify-center self-center'>
             <img src={currentProduct?.images || Product?.images} alt="" className='h-[100%]' />
@@ -80,7 +87,7 @@ function Product() {
                 <div className='flex gap-3'>
                     {
                         ['Small','Medium','Large','Very Large'].map(size=>{
-                            return <button className={`text-sm bg-button-black text-slate-100 rounded-[50px] px-2 py-2 ${selectedSize === size &&  isSizeSelect ? 'bg-button-black text-white' : 'bg-gray-200 text-black'}`} onClick={()=>{handleSelectSize(size)}}>{size}</button>
+                            return <button className={`text-sm bg-button-black  rounded-[50px] px-2 py-2 ${selectedSize === size &&  isSizeSelect ? 'bg-button-black text-white' : 'bg-gray-200 text-black'}`} onClick={()=>{handleSelectSize(size)}}>{size}</button>
                         })
                     }
                 </div>
@@ -92,11 +99,15 @@ function Product() {
                             <button className='bg-gray-400 text-slate-100 rounded-[50px] px-4 py-2' onClick={handleIncrement}>+</button>
                 </div>
                 <div className='w-[60%]'>
-                    <Button className='bg-button-black text-slate-100 w-full rounded-[50px] px-2 py-3' onClick={handleAddToCart}>Add to Cart</Button>
+                    <Button className={`bg-button-black text-slate-100 w-full rounded-[50px] px-2 py-3 ${status==='loading'? 'bg-gray-800 text-gray-200': ''}`} disabled={status === 'loading'} onClick={handleAddToCart}>{status==='loading'?<FontAwesomeIcon icon={faSpinner} spinPulse />:`Add to Cart`}</Button>
                 </div>
             </div>
         </div>
     </div>
+    {
+        currentProduct && <MightLikeCategory categoryName={currentProduct?.category}/>
+    }
+   
     </section>
   )
 }

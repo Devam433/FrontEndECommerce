@@ -3,7 +3,6 @@ import api from "../api/api";
 
 export const fetchProductById = createAsyncThunk('fetchProductById', async (id)=>{
     const result = await api.get(`/products/${id}`);
-    console.log(result.data);
     return result.data;
 })
 
@@ -21,7 +20,6 @@ const productSlice = createSlice({
         .addCase(fetchProductById.fulfilled,(state,action)=>{
             state.Product = action.payload;
             state.status = 'succeeded';
-            console.log(state.Product);
         })
         .addCase(fetchProductById.rejected, (state, action) => {
             state.status = 'failed';
