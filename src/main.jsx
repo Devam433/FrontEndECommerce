@@ -10,6 +10,8 @@ import Cart from './pages/Cart.jsx'
 import { store } from './store/store.js'
 import Product from './pages/Product.jsx'
 
+const LazyProducts = React.lazy(()=>import('../src/pages/Products.jsx'))
+
 const router = createBrowserRouter(
   [
     {
@@ -23,7 +25,7 @@ const router = createBrowserRouter(
         },
         {
           path:'/products', 
-          element:<Products/>,
+          element: <Products/>
         },
         {
           path:'/product/:id',
@@ -32,8 +34,7 @@ const router = createBrowserRouter(
         {
           path:'/cart',
           element:<Cart/>,
-        }
-        
+        } 
       ]
     }
   ]

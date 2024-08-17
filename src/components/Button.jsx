@@ -1,8 +1,8 @@
 import { NavLink } from "react-router-dom"
 
-function Button({className='',onClick,px,children,href,disabled=false}) {
+function Button({className='',onClick,px,children,href,disabled=false,type="button"}) {
 
-  const classes = ` button relative flex justify-center items-center transition-colors ${px || 'px-1'} ${disabled && `bg-green-100`} ${className}`
+  const classes = ` button relative flex justify-center items-center transition-colors ${px || 'px-1'} ${disabled && `bg-gray-700`} ${className}`
 
   function renderLink(){
     return (
@@ -12,7 +12,7 @@ function Button({className='',onClick,px,children,href,disabled=false}) {
   
   function renderButton(){
     return (
-    <button className={classes} onClick={onClick} disabled={disabled}>
+    <button className={classes} onClick={onClick} disabled={disabled} type={type}>
         <span>{children}</span>
     </button>
     )

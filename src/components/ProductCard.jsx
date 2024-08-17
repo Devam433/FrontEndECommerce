@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
-function ProductCard({title,rating,price,id,imageUrl,description}) {
+function ProductCard({title,rating,price,id,imageUrl}) {
   const navigate = useNavigate();
   return (
     <div className='flex flex-col hover:cursor-pointer hover:shadow-sm' key={id} onClick={()=>{navigate(`/product/${id}`)}}>

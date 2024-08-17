@@ -1,3 +1,4 @@
+//this is for fetching product by its id
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import api from "../api/api";
 

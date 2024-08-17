@@ -60,7 +60,7 @@ function Product() {
 
     useEffect(()=>{
         const Product = products?.products.find(product => product.id == id) //gets the required product 
-        if(Product) {
+        if(Product) { //if the Product is available in the state then use it directly from the state
             setCurrentProduct(Product);
             setLoading(false);
         } 

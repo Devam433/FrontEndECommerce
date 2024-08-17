@@ -3,6 +3,7 @@ import Header from "./components/Header"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "./features/productsSlice";
+import Footer from "./components/Footer";
 
 function App() {
   const products = useSelector(state=>state.products);
@@ -10,14 +11,10 @@ function App() {
   const error = useSelector(state=>state.products.error);
 
   const dispatch = useDispatch();
-  console.log(products)
-  console.log(status)
-  console.log(error)
 
   useEffect(()=>{
     if(products?.products.length==0) {
-      console.log('FetxhProfuct Call In UseEffect!')
-      dispatch(fetchProducts())
+      dispatch(fetchProducts(1))
     }
   },[dispatch]);
 
@@ -25,6 +22,7 @@ function App() {
     <>
       <Header/>
       <Outlet/>
+      <Footer/>
     </> 
   )
 }

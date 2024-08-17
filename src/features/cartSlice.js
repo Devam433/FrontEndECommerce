@@ -1,26 +1,18 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import api from "../api/api";
 
-export const addToCart = createAsyncThunk('addtocart', async(payload,{rejectWithValue})=>{
+export const addToCart = createAsyncThunk('addtocart', async (payload, { rejectWithValue }) => {
     try {
-      const res = await fetch('https://dummyjson.com/carts/add', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              userId: 1,
-              products: [
-                payload
-              ]
-            })
-          })
-
-        const result = await res.json();
-        return result.products[0];         
+      const response = await api.post('/carts/add', {
+        userId: 1,
+        products: [payload]
+      });
+  
+      return response.data.products[0];
     } catch (error) {
-        return rejectWithValue({message:'An error occured'});
+      return rejectWithValue({ message: 'An error occurred' });
     }
-
-})
+  });
 
 const cartSlice = createSlice({
     name:'cart',
@@ -34,10 +26,10 @@ const cartSlice = createSlice({
         builder
         .addCase(addToCart.pending,(state)=>{
             state.status = 'loading';
-        })
+        }) 
         .addCase(addToCart.fulfilled,(state,action)=>{
-            const updatedPayload = {...action.payload, date:new Date()}; //adds a date property.
-            state.cart.push(updatedPayload);
+            const updatedPayload = {...action.payload, date:new Date()}; //adding a date property to the payload
+            state.cart.push(updatedPayload); //adding a date property to the payload (successful)
             state.status = 'succeeded';
             console.log(state.cart); //emmer js immutibility,something something, Study about the internals of Redux/RTK. **VVI NOTE**
         })

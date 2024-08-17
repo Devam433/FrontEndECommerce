@@ -10,8 +10,8 @@ export const navItems=[
         id:2,
     },
     {
-        value:'Cart',
-        url:'/cart',
+        value:'Categories',
+        url:'',
         id:3,
-    },
+    }
 ]

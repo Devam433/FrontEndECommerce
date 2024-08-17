@@ -2,7 +2,7 @@ import React from 'react';
 import { navItems } from '../constants/index.js';
 import Button from './Button.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartShopping, faPerson, faPersonRifle, faSearch, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faCartShopping, faSearch, faUser } from '@fortawesome/free-solid-svg-icons';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
